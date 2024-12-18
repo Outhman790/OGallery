@@ -1,8 +1,8 @@
 import Image from "./Image"
 const Gallery = () => { 
     return (
-        <div  className="w-screen grid place-items-center grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-4 mt-20 space-y-10">
-            {Array.from({ length: 10 }).map(() => (
+        <div  className="w-full container max-w-[1200px] grid place-items-center grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10 mt-20 pt-10 mx-auto">   
+                {Array.from({ length: 10 }).map(() => (
                 <Image />
             ))}
         </div>

@@ -6,7 +6,9 @@ function App() {
   return (
     <>
      <Navbar />
+     <div className="mx-10">
      <Gallery />
+     </div>
     </>
   )
 }
