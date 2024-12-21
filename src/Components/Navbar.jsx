@@ -23,7 +23,7 @@ function Navbar() {
     <div className='bg-indigo-600 w-100 flex justify-between items-center'>
       <div className={`container max-w-[1200px] p-4 md:p-6 lg:p-8 mx-auto transition ease-in-out duration-300 ${isOpen ? 'mb-[15rem]' : 'mb-0'}`}>
         <nav className='md:flex justify-between items-center mx-auto  tracking-tight'>
-            <div className='hidden md:block'><h1 className='font-heading text-gray-300 text-3xl font-bold text-center '>OGallery</h1></div>
+            <div className='hidden md:block'><h1 className='font-heading text-gray-100 text-3xl font-bold text-center '>OGallery</h1></div>
             <div className='hidden md:flex justify-between items-center space-x-2 font-sans font-medium text-md'>
 
               <form className='flex items-center justify-between relative'>
@@ -32,7 +32,6 @@ function Navbar() {
                 <MdImageSearch className='text-blue-500 p-2 rounded-md text-[3rem] absolute right-0 top-[-5px]' />
                 </button>
               </form>
-
                 <a className='text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3' href="#">My Images</a>
                 <a className='text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3' href="#">My profile</a>
                 <a className='text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3' href="#">Login</a>
