@@ -1,14 +1,27 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegFileImage } from "react-icons/fa";
 
-const AddImageForm = ({ onSubmit, onChange }) => {
+const AddImageForm = ({ onSubmit, setImage }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     trigger,
+    watch,
   } = useForm();
 
+  const imageWatch = watch("imageFile");
+  useEffect(() => {
+    if (imageWatch?.length > 0 && imageWatch[0].type.startsWith("image/")) {
+      const url = URL.createObjectURL(imageWatch[0]);
+      setImage(url);
+      return () => {
+        URL.revokeObjectURL(url);
+        setImage("");
+      };
+    }
+  }, [imageWatch]);
   const handleBlur = (field) => {
     trigger(field);
   };
@@ -31,10 +44,10 @@ const AddImageForm = ({ onSubmit, onChange }) => {
         {...register("name", {
           validate: {
             minLength: (value) =>
-              value.length >= 3 || "Name must be at least 3 characters long",
+              (value.length >= 3 && value.length <= 25) ||
+              "Name must be at least 3 characters long",
             noSpecialChars: (value) =>
-              /^[A-Za-z]+$/.test(value) || "Name must only contain letters",
-            onChange: (e) => onChange(e),
+              /^[a-zA-Z\s]+$/.test(value) || "Name must only contain letters",
           },
         })}
         onBlur={() => handleBlur("name")}
@@ -57,13 +70,12 @@ const AddImageForm = ({ onSubmit, onChange }) => {
         {...register("imageDescription", {
           validate: {
             minLength: (value) =>
-              value.length >= 10 ||
-              "Description must be at least 10 characters long",
+              value.length >= 50 ||
+              "Description must be at least 50 characters long",
             maxLength: (value) =>
-              value.length <= 100 ||
-              "Description must be less than 100 characters",
+              value.length <= 500 ||
+              "Description must be less than 500 characters",
           },
-          onChange: (e) => onChange(e),
         })}
         onBlur={() => handleBlur("imageDescription")}
       ></textarea>
@@ -81,12 +93,38 @@ const AddImageForm = ({ onSubmit, onChange }) => {
         <FaRegFileImage className="inline-block ml-2 text-2xl" />
       </label>
       <input
+        accept="image/*"
         className="hidden"
         type="file"
         id="imageFile"
         {...register("imageFile", {
           required: "Image file is required",
-          onChange: (e) => onChange(e),
+          validate: {
+            isImage: (fileList) => {
+              const file = fileList[0];
+              if (!file) return true;
+
+              const validTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/webp",
+                "image/jpg",
+              ];
+
+              return (
+                validTypes.includes(file.type) ||
+                "Please insert a valid image file"
+              );
+            },
+            maxSize: (fileList) => {
+              const file = fileList[0];
+              if (!file) return true;
+
+              const maxSize = 1024 * 1024 * 5;
+              return file.size <= maxSize || "File size must be less than 5MB";
+            },
+          },
         })}
       />
       {errors.imageFile && (
