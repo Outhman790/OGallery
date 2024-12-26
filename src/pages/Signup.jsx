@@ -12,10 +12,16 @@ const signUp = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+  const isDomainallowed = (email) => {
+    const allowedDomains = ["gmail", "yahoo", "outlook", "live"];
+    const emailDomain = email.split("@")[1];
+    const emailCompany = emailDomain.split(".")[0];
+    return allowedDomains.includes(emailCompany);
+  };
   return (
     <>
       <div className="flex flex-col md:flex-row justify-center items-center mt-16 container mx-auto gap-12">
-        <div className=" border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400 h-[36rem]">
+        <div className=" border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400">
           <h1 className="font-heading font-bold text-2xl  text-center text-indigo-600 mb-8">
             Sign up into your account
           </h1>
@@ -25,7 +31,9 @@ const signUp = () => {
                 First Name
               </label>
               <input
-                className="block outline-indigo-600 border-[1px] border-gray-300 px-2 w-full"
+                className={`block outline-indigo-600 border-[1px] border-gray-300 px-1 w-full ${
+                  errors.firstName ? "border-red-500 outline-red-500" : ""
+                }`}
                 type="text"
                 id="firstName"
                 placeholder="Enter your first Name"
@@ -46,7 +54,9 @@ const signUp = () => {
                 onBlur={() => trigger("firstName")}
               />
               {errors.firstName && (
-                <p className="text-red-500">{errors.firstName.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.firstName.message}
+                </p>
               )}
               <label
                 className="block mb-1 text-gray-500 mt-2"
@@ -55,7 +65,9 @@ const signUp = () => {
                 Last Name
               </label>
               <input
-                className="block outline-indigo-600 border-[1px] border-gray-300 px-2 w-full"
+                className={`block outline-indigo-600 border-[1px] border-gray-300 px-1 w-full ${
+                  errors.lastName ? "border-red-500 outline-red-500" : ""
+                }`}
                 type="text"
                 id="lastName"
                 placeholder="Enter your last name"
@@ -76,7 +88,9 @@ const signUp = () => {
                 onBlur={() => trigger("lastName")}
               />
               {errors.lastName && (
-                <p className="text-red-500">{errors.lastName.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.lastName.message}
+                </p>
               )}
               <label
                 className="block mb-1 text-gray-500 mt-2"
@@ -85,7 +99,9 @@ const signUp = () => {
                 Password
               </label>
               <input
-                className="block outline-indigo-600 border-[1px] border-gray-300  px-2 w-full"
+                className={`block outline-indigo-600 border-[1px] border-gray-300 px-1 w-full ${
+                  errors.password ? "border-red-500 outline-red-500" : ""
+                }`}
                 type="password"
                 id="password"
                 placeholder="Enter your password"
@@ -107,7 +123,9 @@ const signUp = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.password.message}
+                </p>
               )}
               <label
                 className="block mb-1 text-gray-500 mt-2"
@@ -116,7 +134,9 @@ const signUp = () => {
                 Confirm Password
               </label>
               <input
-                className="block outline-indigo-600 border-[1px] border-gray-300 px-2 w-full"
+                className={`block outline-indigo-600 border-[1px] border-gray-300 px-1 w-full ${
+                  errors.confirmPassword ? "border-red-500 outline-red-500" : ""
+                }`}
                 type="password"
                 id="confirmPassword"
                 placeholder="Confirm your password"
@@ -127,7 +147,9 @@ const signUp = () => {
                 })}
               />
               {errors.confirmPassword && (
-                <p className="text-red-500">{errors.confirmPassword.message}</p>
+                <p className="text-red-500 text-xs">
+                  {errors.confirmPassword.message}
+                </p>
               )}
             </div>
             <label
@@ -137,11 +159,26 @@ const signUp = () => {
               Email
             </label>
             <input
-              className="block outline-indigo-600 border-[1px] border-gray-300 px-1 mb-4 w-full"
+              className={`block outline-indigo-600 border-[1px] border-gray-300 px-1 w-full ${
+                errors.email ? "border-red-500 outline-red-500" : ""
+              }`}
               type="text"
               id="emailSignup"
               placeholder="Enter your email"
+              {...register("email", {
+                required: "Email is required",
+                validate: {
+                  isValidEmail: (value) =>
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ||
+                    "Invalid email format",
+                  isDomainallowed: (value) =>
+                    isDomainallowed(value) || "Domain not allowed",
+                },
+              })}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs">{errors.email.message}</p>
+            )}
             <button
               className="block text-center font-sans text-gray-200 bg-indigo-600 w-full	 py-2 mt-3 mb-2 md:my-4 rounded-md"
               type="submit"
