@@ -1,4 +1,3 @@
-import Navbar from "../Components/Navbar";
 import loginImage from "../images/login-image.png";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -43,7 +42,9 @@ const Login = () => {
             Email
           </label>
           <input
-            className="p-2 block w-full border-2 border-gray-300 rounded-md outline-indigo-600"
+            className={`p-2 block w-full border-[1px] border-gray-300 rounded-md outline-indigo-600 ${
+              errors.email ? "border-red-500 outline-red-500" : ""
+            }`}
             id="email_login"
             type="text"
             placeholder="Enter your email"
@@ -59,7 +60,9 @@ const Login = () => {
             })}
           />
           {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
+            <p className="text-red-500 text-xs text-xs">
+              {errors.email.message}
+            </p>
           )}
 
           {/* Password Field */}
@@ -70,7 +73,9 @@ const Login = () => {
             Password
           </label>
           <input
-            className="p-2 block w-full border-2 border-gray-300 rounded-md outline-indigo-600"
+            className={`p-2 block w-full border-[1px] border-gray-300 rounded-md outline-indigo-600 ${
+              errors.password ? "border-red-500 outline-red-500" : ""
+            }`}
             id="password_login"
             type="password"
             placeholder="Enter your password"
@@ -83,7 +88,7 @@ const Login = () => {
             })}
           />
           {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
+            <p className="text-red-500 text-xs">{errors.password.message}</p>
           )}
 
           {/* Remember Me Checkbox */}
