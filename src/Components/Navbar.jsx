@@ -53,7 +53,7 @@ function Navbar() {
                   <Link to="/login">Login</Link>
                 </li>
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  <Link to={"/Signup"}>Sign up</Link>
+                  <Link to="/Signup">Sign up</Link>
                 </li>
               </ul>
             </div>
