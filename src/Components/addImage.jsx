@@ -18,12 +18,6 @@ const AddImage = ({ closeModal, items, setItems }) => {
     closeModal();
   };
 
-  // const onChange = (e) => {
-  //   e.target.files && e.target.files.length > 0
-  //     ? setImage(URL.createObjectURL(e.target.files[0]))
-  //     : "";
-  // };
-
   return (
     <div
       onClick={closeModal}
