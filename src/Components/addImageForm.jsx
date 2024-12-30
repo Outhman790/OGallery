@@ -44,8 +44,9 @@ const AddImageForm = ({ onSubmit, setImage }) => {
         {...register("name", {
           validate: {
             minLength: (value) =>
-              (value.length >= 3 && value.length <= 25) ||
-              "Name must be at least 3 characters long",
+              value.length >= 3 || "Name must be at least 3 characters long",
+            maxLength: (value) =>
+              value.length <= 25 || "Name must be at most 25 characters long",
             noSpecialChars: (value) =>
               /^[a-zA-Z\s]+$/.test(value) || "Name must only contain letters",
           },
