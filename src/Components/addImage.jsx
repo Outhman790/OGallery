@@ -2,7 +2,7 @@ import { useState } from "react";
 import AddImageForm from "./addImageForm";
 import { IoClose } from "react-icons/io5";
 
-const AddImage = ({ closeModal, items, setItems }) => {
+const AddImage = ({ closeModal, dispatch }) => {
   const [image, setImage] = useState("");
   const onSubmit = (formData) => {
     const newItem = {
@@ -14,7 +14,7 @@ const AddImage = ({ closeModal, items, setItems }) => {
         : "",
       author: "temp fake author",
     };
-    setItems([...items, newItem]);
+    dispatch({ type: "ADD_ITEM", payload: newItem });
     closeModal();
   };
 
