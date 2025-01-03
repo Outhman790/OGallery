@@ -4,10 +4,10 @@ import Navbar from "./Components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/signUp";
 import MyProfile from "./pages/Myprofile";
-import TodoProvider from "./Context/TodoContext";
+import GlobalProvider from "./Context/GlobalState";
 function App() {
   return (
-    <TodoProvider>
+    <GlobalProvider>
       <Router>
         <Navbar />
         <Routes>
@@ -17,7 +17,7 @@ function App() {
           <Route path="/profile" element={<MyProfile />} />
         </Routes>
       </Router>
-    </TodoProvider>
+    </GlobalProvider>
   );
 }
 
