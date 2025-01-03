@@ -1,9 +1,9 @@
 import AddImage from "./addImage";
 import Image from "./Image";
-import { useState, useReducer } from "react";
-import { useTodoContext } from "../Context/TodoContext";
+import { useState } from "react";
+import { useGlobalContext } from "../Context/GlobalState";
 const Gallery = () => {
-  const { items, dispatch } = useTodoContext();
+  const { items, dispatch } = useGlobalContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
@@ -14,7 +14,7 @@ const Gallery = () => {
 
   return (
     <>
-      <div className="flex max-w[1200px] justify-center items-center mt-10">
+      <div className="flex justify-center items-center mt-10">
         <p className="text-center p-2 font-medium md:text-xl">{`Images number is: ${items.length}`}</p>
         <hr className="border-l border-gray-300 h-10 mr-3" />
         <button
