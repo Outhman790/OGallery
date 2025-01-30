@@ -44,16 +44,16 @@ function Navbar() {
               </form>
               <ul className="flex justfy-between items-center space-x-2">
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  My images
-                </li>
-                <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  <Link to="/profile">My profile</Link>
+                  My Profile
                 </li>
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
                   <Link to="/login">Login</Link>
                 </li>
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
                   <Link to="/Signup">Sign up</Link>
+                </li>
+                <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
+                  <Link to="/profile">My Account</Link>
                 </li>
               </ul>
             </div>
@@ -89,16 +89,16 @@ function Navbar() {
               </form>
               <div className="flex flex-col space-y-4 text-center">
                 <a className="text-gray-100 font-medium text-xl" href="#">
-                  My Images
-                </a>
-                <a className="text-gray-100 font-medium text-xl" href="#">
-                  My profile
+                  My Profile
                 </a>
                 <a className="text-gray-100 font-medium text-xl" href="#">
                   Login
                 </a>
                 <a className="text-gray-100 font-medium text-xl" href="#">
                   Sign up
+                </a>
+                <a className="text-gray-100 font-medium text-xl" href="#">
+                  My Account
                 </a>
               </div>
             </div>
