@@ -1,20 +1,19 @@
-import { createConnection } from "mysql";
-require("dotenv").config();
+require("dotenv").config(); // Load environment variables
+const mysql = require("mysql2");
 
-// Create a reusable database connection
-const db = createConnection({
+// Create and export a reusable database connection pool
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306, // Default to 3306 if DB_PORT is not defined
+  waitForConnections: true,
+  connectionLimit: 10, // Maximum number of connections
+  queueLimit: 0, // No limit on queued connection requests
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Database connection failed:", err.message);
-    return;
-  }
-  console.log("Connected to MySQL database!");
-});
+// Export a promise-based connection for ease of use
+const promisePool = pool.promise();
 
-export default db;
+module.exports = promisePool;
