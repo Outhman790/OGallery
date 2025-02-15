@@ -6,12 +6,33 @@ const signUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
     trigger,
     watch,
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      console.log("Sending data to backend:", data); // Log the data being sent
+      const response = await fetch("/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      console.log("Response status:", response.status); // Log response status
+      const result = await response.json();
+      console.log("Response from backend:", result); // Log the response body
+
+      if (result.message === "Email already in use") {
+        setError("email", {
+          type: "server",
+          message: "Email already in use",
+        });
+      }
+    } catch (error) {
+      console.error("Sign-up error:", error); // Log unexpected errors
+    }
   };
+
   const isDomainallowed = (email) => {
     const allowedDomains = ["gmail", "yahoo", "outlook", "live"];
     const emailDomain = email.split("@")[1];
