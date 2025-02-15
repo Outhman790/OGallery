@@ -1,10 +1,13 @@
 const express = require("express");
 const path = require("path");
 const db = require("./db");
+const authRoutes = require("./Routes/authRoutes");
 const app = express();
 
 // Middleware to parse JSON
 app.use(express.json());
+
+app.use("/", authRoutes);
 
 // Serve React static files (from `dist` folder)
 app.use(express.static(path.join(__dirname, "../Client/dist")));
