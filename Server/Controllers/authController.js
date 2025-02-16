@@ -41,7 +41,7 @@ const signUpUser = async (req, res) => {
     console.log("User created successfully");
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
-    console.error("Error during sign-up:", error); // Log the full error
+    console.error("Error during sign-up:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
