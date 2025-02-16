@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import signupImage from "../images/signup-image.svg";
 import { useForm } from "react-hook-form";
+import { BounceLoader } from "react-spinners";
+
 const signUp = () => {
   const {
     register,
@@ -10,7 +13,10 @@ const signUp = () => {
     trigger,
     watch,
   } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmit = async (data) => {
+    setIsLoading(true);
+    console.log(errors);
     try {
       console.log("Sending data to backend:", data); // Log the data being sent
       const response = await fetch("/signup", {
@@ -30,6 +36,10 @@ const signUp = () => {
       }
     } catch (error) {
       console.error("Sign-up error:", error); // Log unexpected errors
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false); // Stop loading animation
+      }, 2000);
     }
   };
 
@@ -42,7 +52,7 @@ const signUp = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row justify-center items-center mt-16 container mx-auto gap-12">
-        <div className=" border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400">
+        <div className="border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400">
           <h1 className="font-heading font-bold text-2xl  text-center text-indigo-600 mb-8">
             Sign up into your account
           </h1>
@@ -200,11 +210,13 @@ const signUp = () => {
             {errors.email && (
               <p className="text-red-500 text-xs">{errors.email.message}</p>
             )}
+
             <button
               className="block text-center font-sans text-gray-200 bg-indigo-600 w-full	 py-2 mt-3 mb-2 md:my-4 rounded-md"
               type="submit"
+              disabled={isLoading}
             >
-              Sign up
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
             <div className="text-center md:text-left">
               <p className="inline-block mr-2 text-indigo-500">
@@ -215,6 +227,11 @@ const signUp = () => {
               </Link>
             </div>
           </form>
+          {isLoading && Object.keys(errors).length === 0 && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-50">
+              <BounceLoader color="#4f46e5" size={50} />
+            </div>
+          )}
         </div>
         <div className="overflow-hidden">
           <img
