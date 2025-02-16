@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const db = require("./db");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 const authRoutes = require("./Routes/authRoutes");
 const app = express();
 
@@ -28,10 +29,22 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
-// Catch-all route to serve React app
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Client/dist", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  // Serve React static files (production only)
+  app.use(express.static(path.join(__dirname, "../Client/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../Client/dist", "index.html"));
+  });
+} else {
+  // Proxy React requests to the React development server (development only)
+  app.use(
+    createProxyMiddleware({
+      target: "http://localhost:5173/", // React development server
+      changeOrigin: true,
+    })
+  );
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
