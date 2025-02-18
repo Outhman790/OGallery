@@ -3,31 +3,18 @@ const path = require("path");
 const db = require("./db");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const authRoutes = require("./Routes/authRoutes");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(cookieParser()); // Enable cookie parsing
 
 app.use("/", authRoutes);
 
 // Serve React static files (from `dist` folder)
 app.use(express.static(path.join(__dirname, "../Client/dist")));
-
-// API Route Example
-app.get("/api/test", (req, res) => {
-  res.json({ message: "Hello from the API!" });
-});
-
-app.get("/api/test-db", async (req, res) => {
-  try {
-    // Perform a simple query to test the connection
-    const [rows] = await db.query("SELECT 1 + 1 AS result");
-    res.json({ success: true, result: rows[0].result }); // Send the result as JSON
-  } catch (error) {
-    console.error("Database test failed:", error.message);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
 
 if (process.env.NODE_ENV === "production") {
   // Serve React static files (production only)
@@ -46,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
