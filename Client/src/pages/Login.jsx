@@ -1,5 +1,6 @@
 import loginImage from "../images/login-image.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
@@ -7,19 +8,36 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    trigger,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Allow cookies to be sent and received
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Login failed");
+      }
+
+      // Successful login
+      alert("Login successful!");
+      window.location.href = "/profile";
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  const isDomainallowed = (email) => {
-    const allowedDomains = ["gmail", "yahoo", "outlook", "live"];
-    const emailDomain = email.split("@")[1];
-    const emailCompany = emailDomain.split(".")[0];
-    return allowedDomains.includes(emailCompany);
-  };
   return (
     <>
       <div className="flex flex-col md:flex-row justify-center items-center gap-10 mt-16 container mx-auto">
@@ -48,21 +66,10 @@ const Login = () => {
             id="email_login"
             type="text"
             placeholder="Enter your email"
-            {...register("email", {
-              required: "Email is required",
-              validate: {
-                isValidEmail: (value) =>
-                  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ||
-                  "Invalid email format",
-                isDomainallowed: (value) =>
-                  isDomainallowed(value) || "Domain not allowed",
-              },
-            })}
+            {...register("email", { required: "Email is required" })}
           />
           {errors.email && (
-            <p className="text-red-500 text-xs text-xs">
-              {errors.email.message}
-            </p>
+            <p className="text-red-500 text-xs">{errors.email.message}</p>
           )}
 
           {/* Password Field */}
@@ -79,32 +86,11 @@ const Login = () => {
             id="password_login"
             type="password"
             placeholder="Enter your password"
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            })}
+            {...register("password", { required: "Password is required" })}
           />
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
           )}
-
-          {/* Remember Me Checkbox */}
-          <input className="my-3" type="checkbox" id="rememberMe_login" />
-          <label
-            className="pl-1 md:pl-2 text-indigo-600 mt-3 mb-1"
-            htmlFor="rememberMe_login"
-          >
-            Remember me
-          </label>
-          <a
-            className="inline-block ml-6 md:ml-[5rem] text-indigo-600"
-            href="#"
-          >
-            Forgot your password?
-          </a>
 
           {/* Submit Button */}
           <button
