@@ -9,7 +9,6 @@ function App() {
   return (
     <GlobalProvider>
       <Router>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
