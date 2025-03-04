@@ -8,9 +8,9 @@ const Home = () => {
     <>
       <Navbar />
       <div className="bg-purple-100">
-        <section className="container md:mx-auto grid md:grid-flow-col md:grid-cols-4 p-10">
-          <div className="max-w-[600px] p-5 col-span-2">
-            <h2 className="font-heading text-6xl font-bold mb-4 mt-10 text-center md:text-left">
+        <section className="container flex flex-col-reverse md:mx-auto md:grid md:grid-flow-col md:grid-cols-4 p-10">
+          <div className="max-w-[600px] md:p-5 col-span-2">
+            <h2 className="font-heading text-3xl md:text-6xl font-bold mb-4 mt-10 text-center md:text-left">
               Share Your Visual Stories with the World
             </h2>
             <p className="mb-4 text-center md:text-left">
@@ -25,19 +25,19 @@ const Home = () => {
             </button>
           </div>
           <div className="">
-            <div className="flex flex-col md:flex-row justify-between mb-2">
+            <div className="hidden h-[20rem] md:flex flex-col md:flex-row justify-between mb-2">
               <img
                 src={img_1}
                 alt=""
-                className="mr-2 translate-y-[-1rem] rounded"
+                className="md:mr-2 md:translate-y-[-1rem] rounded"
               />
               <img src={img_2} alt="" className="rounded" />
             </div>
-            <div className="flex flex-col md:flex-row  justify-between">
+            <div className="flex flex-col md:flex-row justify-between h-[20rem]">
               <img
                 src={img_3}
                 alt=""
-                className="mr-2 translate-y-[-1rem] rounded"
+                className="hidden md:inline-block md:mr-2 md:translate-y-[-1rem] rounded"
               />
               <img src={img_4} alt="" className="rounded" />
             </div>
