@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 
 function Navbar() {
   return (
-    <nav className="container bg-gray-100 flex justify-between items-center p-4 mx-auto">
+    <nav className="container flex justify-between items-center p-4 mx-auto">
       <div className="flex justify-between text-purple-600 gap-2">
         <FaCamera className="text-3xl" />
         <h1 className="text-2xl font-bold">Ogallery</h1>
