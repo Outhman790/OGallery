@@ -10,10 +10,11 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-purple-100">
-        <section className="container flex flex-col-reverse md:mx-auto md:grid md:grid-flow-col md:grid-cols-4 p-10">
-          <div className="max-w-[600px] md:p-5 col-span-2">
-            <h2 className="font-heading text-3xl md:text-6xl font-bold mb-4 mt-10 text-center md:text-left">
+      {/* Hero Section */}
+      <div className="bg-purple-100 mx-auto">
+        <section className="md:container flex flex-col-reverse md:mx-auto md:grid md:grid-flow-col md:grid-cols-4 p-10">
+          <div className="md:p-5 col-span-2">
+            <h2 className="font-heading text-4xl lg:text-6xl font-bold mb-4 mt-10 text-center md:text-left">
               Share Your Visual Stories with the World
             </h2>
             <p className="mb-4 text-center md:text-left">
@@ -28,25 +29,30 @@ const Home = () => {
             </button>
           </div>
           <div className="">
-            <div className="hidden h-[18rem] md:flex flex-col md:flex-row justify-between mb-2">
+            <div className="hidden h-fit lg:flex flex-col lg:flex-row justify-between mb-2">
               <img
                 src={img_1}
                 alt=""
-                className="md:mr-2 md:translate-y-[-1rem] rounded"
+                className="lg:mr-2 lg:translate-y-[-1rem] rounded"
               />
               <img src={img_2} alt="" className="rounded" />
             </div>
-            <div className="flex flex-col md:flex-row justify-between h-[18rem] object-cover">
+            <div className="flex flex-col md:flex-row justify-between h-fit ">
               <img
                 src={img_3}
                 alt=""
-                className="hidden md:inline-block md:mr-2 md:translate-y-[-1rem] rounded"
+                className="hidden md:inline-block md:h-[25rem] mr-2 lg:translate-y-[-1rem] rounded object-cover"
               />
-              <img src={img_4} alt="" className="rounded" />
+              <img
+                src={img_4}
+                alt=""
+                className="rounded h-[25rem] w-[30rem] lg:h-auto object-cover mx-auto lg:m-0"
+              />
             </div>
           </div>
         </section>
       </div>
+      {/* Features section */}
       <div className="bg-gray-100">
         <section className="container mx-auto p-10">
           <h2 className="text-center text-3xl font-bold my-3">
@@ -82,6 +88,7 @@ const Home = () => {
           </div>
         </section>
       </div>
+      {/* Call to Action (Sign up section) */}
       <div className="bg-gradient-to-r from-indigo-600 from-10% via-purple-500 via-50% to-purple-600 to-90%">
         <section className="container mx-auto p-10">
           <h3 className="text-center text-white font-bold text-3xl my-4">
@@ -96,6 +103,7 @@ const Home = () => {
           </button>
         </section>
       </div>
+      {/* Footer */}
       <footer className="bg-gray-100">
         <div className="container mx-auto p-4">
           <p className="text-gray-700 text-center">
