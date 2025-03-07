@@ -29,7 +29,7 @@ const Home = () => {
             </button>
           </div>
           <div className="">
-            <div className="hidden h-fit lg:flex flex-col lg:flex-row justify-between mb-2">
+            <div className="hidden h-fit lg:h-[20rem] lg:flex flex-col lg:flex-row justify-between mb-2">
               <img
                 src={img_1}
                 alt=""
@@ -37,16 +37,16 @@ const Home = () => {
               />
               <img src={img_2} alt="" className="rounded" />
             </div>
-            <div className="flex flex-col md:flex-row justify-between h-fit ">
+            <div className="flex flex-col md:flex-row justify-between h-fit  ">
               <img
                 src={img_3}
                 alt=""
-                className="hidden md:inline-block md:h-[25rem] mr-2 lg:translate-y-[-1rem] rounded object-cover"
+                className="hidden md:inline-block h-[25rem] lg:h-[20rem] mr-2 lg:translate-y-[-1rem] rounded object-cover"
               />
               <img
                 src={img_4}
                 alt=""
-                className="rounded h-[25rem] w-[30rem] lg:h-auto object-cover mx-auto lg:m-0"
+                className="rounded h-[25rem] lg:h-[20rem] w-[30rem]  object-cover mx-auto lg:m-0"
               />
             </div>
           </div>
