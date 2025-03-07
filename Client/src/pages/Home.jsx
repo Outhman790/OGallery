@@ -53,7 +53,7 @@ const Home = () => {
         </section>
       </div>
       {/* Features section */}
-      <div className="bg-gray-100">
+      <div className="bg-slate-50">
         <section className="container mx-auto p-10">
           <h2 className="text-center text-3xl font-bold my-3">
             Everything You Need to Share Your Creativity
@@ -101,6 +101,21 @@ const Home = () => {
           <button className="block text-purple-700 bg-gray-100 border-2 border-purple-500 py-2 px-6 my-5 mx-auto rounded">
             Create Your Account
           </button>
+        </section>
+      </div>
+      {/* Trending Section */}
+      <div className="bg-slate-50">
+        <section className="container mx-auto p-10">
+          <h2 className="text-center text-3xl font-bold my-3">Trending Now</h2>
+          <p className="text-center text-gray-700 mb-10">
+            Check out the latest and most popular images on Ogallery
+          </p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2">
+            <img src={img_1} alt="" className="h-[22rem]" />
+            <img src={img_2} alt="" className="h-[22rem]" />
+            <img src={img_3} alt="" className="h-[22rem]" />
+            <img src={img_4} alt="" className="h-[22rem]" />
+          </div>
         </section>
       </div>
       {/* Footer */}
