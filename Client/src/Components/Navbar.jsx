@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <nav className="container flex justify-between items-center p-4 mx-auto">
-      <div className="flex justify-between text-purple-600 gap-2">
+    <nav className="container flex justify-between items-center p-4 md:p-0 mx-auto">
+      {/* Logo and Brand Name */}
+      <div className="absolute inset-0 z-10 p-4 text-center bg-white w-full h-fit md:w-auto  md:static flex justify-center items-center gap-1 md:bg-transparent md:gap-1 md:m-0 md:p-0 text-purple-600">
         <FaCamera className="text-3xl" />
         <h1 className="text-2xl font-bold">Ogallery</h1>
       </div>
-      <ul className="flex items-center gap-8 text-gray-700">
-        <li>Explore</li>
-        <li>Features</li>
-        <li>About</li>
-        <li className="text-purple-700">Login</li>
-        <li className="bg-purple-700 text-white px-3 py-1 rounded-md border-purple-700">
-          Signup
-        </li>
+
+      {/* Hamburger Menu (Mobile Only) */}
+      <GiHamburgerMenu
+        className="text-3xl cursor-pointer md:hidden absolute top-5 right-5  z-20"
+        onClick={toggleMenu}
+      />
+
+      {/* Navigation Links */}
+      <ul
+        className={`${
+          isOpen ? "block" : "hidden"
+        } md:flex md:items-center md:gap-8 text-gray-700 absolute md:static inset-0 bg-stone-50 md:bg-transparent h-fit p-5 mt-16 md:m-0`}
+      >
+        <li className="w-fit mx-auto p-1 md:p-0">Explore</li>
+        <li className="w-fit mx-auto p-1 md:p-0">Features</li>
+        <li className="w-fit mx-auto p-1 md:p-0">About</li>
+        <li className="w-fit mx-auto p-1 md:p-0">Login</li>
+        <li className="w-fit mx-auto">Signup</li>
       </ul>
     </nav>
   );
