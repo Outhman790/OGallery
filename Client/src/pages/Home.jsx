@@ -21,10 +21,10 @@ const Home = () => {
               Join millions of creators sharing their photos, artwork, and
               memorable moments on Ogallery. Connect, inspire, and get inspired.
             </p>
-            <button className="bg-purple-700 text-white rounded py-2 px-6 md:mr-5 block md:inline-block mx-auto">
+            <button className="bg-purple-700 text-white rounded py-2 px-6 md:mr-5 block md:inline-block mx-auto transition-transform duration-300 ease-in-out hover:bg-purple-800">
               Get Started
             </button>
-            <button className="bg-purple-100 text-purple-700  border-2 border-purple-500 rounded-md py-2 px-6 block md:inline-block mx-auto my-3">
+            <button className="bg-purple-100 text-purple-700  border-2 border-purple-500 rounded-md py-2 px-6 block md:inline-block mx-auto my-3 transition-transform duration-300 ease-in-out hover:bg-purple-200">
               Learn more
             </button>
           </div>
@@ -62,21 +62,21 @@ const Home = () => {
             Powerful features to showcase your work and connect with others
           </p>
           <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-            <div className="bg-purple-200 p-8 rounded mb-4">
+            <div className="bg-purple-200 p-8 rounded mb-4 transition-transform duration-300 ease-in-out hover:bg-purple-300 hover:scale-105">
               <FaUpload className="mx-auto block text-purple-700 text-xl" />
               <h3 className="text-center font-semibold mb-1">Easy uploads</h3>
               <p className="text-gray-700">
                 Upload your photos in seconds with our intuitive interface
               </p>
             </div>
-            <div className="bg-purple-200 p-8 rounded mb-4">
+            <div className="bg-purple-200 p-8 rounded mb-4 transition-transform duration-300 ease-in-out hover:bg-purple-300 hover:scale-105">
               <FaTags className="mx-auto block text-purple-700 text-xl" />
               <h3 className="text-center font-semibold mb-1">Smart tagging</h3>
               <p className="text-gray-700">
                 Organize your content with intelligent tagging system
               </p>
             </div>
-            <div className="bg-purple-200 p-8 rounded mb-4">
+            <div className="bg-purple-200 p-8 rounded mb-4 transition-transform duration-300 ease-in-out hover:bg-purple-300 hover:scale-105">
               <FaComments className="mx-auto block text-purple-700 text-xl" />
               <h3 className="text-center font-semibold mb-1">
                 Social engagement
@@ -91,14 +91,14 @@ const Home = () => {
       {/* Call to Action (Sign up section) */}
       <div className="bg-gradient-to-r from-indigo-600 from-10% via-purple-500 via-50% to-purple-600 to-90%">
         <section className="container mx-auto p-10">
-          <h3 className="text-center text-white font-bold text-3xl my-4">
+          <h3 className="text-center text-white font-bold text-3xl my-4 ">
             Ready To Share Your Story?
           </h3>
           <p className="text-white text-center mb-3">
             Join our creative community today and start sharing your visual
             journey
           </p>
-          <button className="block text-purple-700 bg-gray-100 border-2 border-purple-500 py-2 px-6 my-5 mx-auto rounded">
+          <button className="block text-purple-700 bg-gray-100 border-2 border-purple-500 py-2 px-6 my-5 mx-auto rounded transition-transform duration-300 ease-in-out hover:bg-gray-200 hover:scale-105">
             Create Your Account
           </button>
         </section>
