@@ -3,7 +3,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { MdImageSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
-function Navbar() {
+function loginNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -109,4 +109,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default loginNavbar;
