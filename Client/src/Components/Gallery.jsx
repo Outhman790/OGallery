@@ -1,3 +1,4 @@
+import Navbar from "../Components/Navbar";
 import AddImage from "./addImage";
 import Image from "./Image";
 import { useState } from "react";
@@ -14,6 +15,7 @@ const Gallery = () => {
 
   return (
     <>
+      <Navbar />
       <div className="flex justify-center items-center mt-10">
         <p className="text-center p-2 font-medium md:text-xl">{`Images number is: ${items.length}`}</p>
         <hr className="border-l border-gray-300 h-10 mr-3" />
