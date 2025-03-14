@@ -3,7 +3,7 @@ import { useState } from "react";
 import signupImage from "../images/signup-image.svg";
 import { useForm } from "react-hook-form";
 import { BounceLoader } from "react-spinners";
-
+import Navbar from "../Components/Navbar";
 const signUp = () => {
   const {
     register,
@@ -51,6 +51,7 @@ const signUp = () => {
   };
   return (
     <>
+      <Navbar />
       <div className="flex flex-col md:flex-row justify-center items-center mt-16 container mx-auto gap-12">
         <div className="border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400">
           <h1 className="font-heading font-bold text-2xl  text-center text-indigo-600 mb-8">
