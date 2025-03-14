@@ -2,6 +2,7 @@ import loginImage from "../images/login-image.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Navbar from "../Components/Navbar";
 
 const Login = () => {
   const {
@@ -40,6 +41,7 @@ const Login = () => {
 
   return (
     <>
+      <Navbar />
       <div className="flex flex-col md:flex-row justify-center items-center gap-10 mt-16 container mx-auto">
         <form
           onSubmit={handleSubmit(onSubmit)}
