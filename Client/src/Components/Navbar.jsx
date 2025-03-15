@@ -6,6 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
     <nav
       className={
@@ -14,10 +15,12 @@ function Navbar() {
     >
       <div className="container flex justify-between items-center p-4 md:p-0 mx-auto">
         {/* Logo and Brand Name */}
-        <div className="absolute inset-0 z-10 p-4 text-center  w-full h-fit md:w-auto  md:static flex justify-center items-center gap-1 md:m-0 md:p-0 text-purple-600">
-          <FaCamera className="text-3xl" />
-          <h1 className="text-2xl font-bold">Ogallery</h1>
-        </div>
+        <Link to="/">
+          <div className="absolute inset-0 z-10 p-4 text-center  w-full h-fit md:w-auto  md:static flex justify-center items-center gap-1 md:m-0 md:p-0 text-purple-600 cursor-pointer">
+            <FaCamera className="text-3xl" />
+            <h1 className="text-2xl font-bold">Ogallery</h1>
+          </div>
+        </Link>
 
         {/* Hamburger Menu (Mobile Only) */}
         <GiHamburgerMenu
