@@ -1,4 +1,4 @@
-import loginImage from "../images/login-image.png";
+import loginImage from "../images/login-image.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -47,7 +47,7 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-auto md:p-8"
         >
-          <h1 className="font-heading font-extrabold text-3xl text-indigo-600 mb-1">
+          <h1 className="font-heading font-extrabold text-3xl text-purple-600 mb-1">
             Sign in
           </h1>
           <p className="font-sans text-gray-600 mt-1 mb-4 md:mb-6">
@@ -96,7 +96,7 @@ const Login = () => {
 
           {/* Submit Button */}
           <button
-            className="block text-center font-sans text-gray-200 bg-indigo-600 w-full py-2 mt-3 mb-2 md:my-4 rounded-md"
+            className="block text-center font-sans text-gray-200 bg-purple-600 w-full py-2 mt-3 mb-2 md:my-4 rounded-md"
             type="submit"
           >
             Log in
