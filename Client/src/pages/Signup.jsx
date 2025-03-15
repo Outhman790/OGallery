@@ -54,7 +54,7 @@ const signUp = () => {
       <Navbar />
       <div className="flex flex-col md:flex-row justify-center items-center mt-16 container mx-auto gap-12">
         <div className="border-2 border-gray-300 rounded-lg w-[350px] p-5 md:w-fit md:p-8 shadow-md shadow-indigo-400">
-          <h1 className="font-heading font-bold text-2xl  text-center text-indigo-600 mb-8">
+          <h1 className="font-heading font-bold text-2xl  text-center text-purple-600 mb-8">
             Sign up into your account
           </h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -213,7 +213,7 @@ const signUp = () => {
             )}
 
             <button
-              className="block text-center font-sans text-gray-200 bg-indigo-600 w-full	 py-2 mt-3 mb-2 md:my-4 rounded-md"
+              className="block text-center font-sans text-gray-200 bg-purple-600 w-full	 py-2 mt-3 mb-2 md:my-4 rounded-md"
               type="submit"
               disabled={isLoading}
             >
