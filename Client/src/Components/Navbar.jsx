@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-function Navbar() {
+function Navbar({ scrollTo }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -37,11 +37,17 @@ function Navbar() {
           <li className="w-fit mx-auto p-1 md:p-0">
             <Link to="/gallery">Explore</Link>
           </li>
-          <li className="w-fit mx-auto p-1 md:p-0">
-            <a href="">Features</a>
+          <li
+            className="w-fit mx-auto p-1 md:p-0"
+            onClick={() => scrollTo("section1")}
+          >
+            <button>Features</button>
           </li>
-          <li className="w-fit mx-auto p-1 md:p-0">
-            <a href="">About</a>
+          <li
+            className="w-fit mx-auto p-1 md:p-0"
+            onClick={() => scrollTo("section2")}
+          >
+            <button>Trending now</button>
           </li>
           <li className="w-fit mx-auto p-1 md:p-0">
             <Link to="/login">Login</Link>

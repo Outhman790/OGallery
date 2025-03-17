@@ -3,13 +3,22 @@ import img_1 from "../images/img_1.webp";
 import img_2 from "../images/img_2.webp";
 import img_3 from "../images/img_3.webp";
 import img_4 from "../images/img_4.webp";
+import { useRef } from "react";
 import { FaTags } from "react-icons/fa";
 import { FaUpload } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa6";
 const Home = () => {
+  const sectionRefs = {
+    section1: useRef(null),
+    section2: useRef(null),
+  };
+
+  const scrollTo = (sectionName) => {
+    sectionRefs[sectionName].current?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <>
-      <Navbar />
+      <Navbar scrollTo={scrollTo} />
       {/* Hero Section */}
       <div className="bg-purple-100 mx-auto">
         <section className="md:container flex flex-col-reverse md:mx-auto md:grid md:grid-flow-col md:grid-cols-4 p-10">
@@ -53,7 +62,7 @@ const Home = () => {
         </section>
       </div>
       {/* Features section */}
-      <div className="bg-slate-50">
+      <div className="bg-slate-50" ref={sectionRefs.section1}>
         <section className="container mx-auto p-10">
           <h2 className="text-center text-3xl font-bold my-3">
             Everything You Need to Share Your Creativity
@@ -104,7 +113,7 @@ const Home = () => {
         </section>
       </div>
       {/* Trending Section */}
-      <div className="bg-slate-50">
+      <div className="bg-slate-50" ref={sectionRefs.section2}>
         <section className="container mx-auto p-10">
           <h2 className="text-center text-3xl font-bold my-3">Trending Now</h2>
           <p className="text-center text-gray-700 mb-10">
