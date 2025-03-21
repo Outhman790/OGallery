@@ -51,7 +51,7 @@ const tempDataForNow = [
 ];
 
 const GlobalContext = createContext();
-export default function TodoProvider({ children }) {
+export default function GlobalProvider({ children }) {
   const [items, dispatch] = useReducer(reducer, tempDataForNow);
   return (
     <GlobalContext.Provider value={{ items, dispatch }}>
