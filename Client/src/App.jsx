@@ -5,19 +5,23 @@ import Login from "./pages/Login";
 import Signup from "./pages/signUp";
 import MyProfile from "./pages/Myprofile";
 import GlobalProvider from "./Context/GlobalState";
+import AuthProvider from "./Context/AuthContext";
+
 function App() {
   return (
-    <GlobalProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<MyProfile />} />
-        </Routes>
-      </Router>
-    </GlobalProvider>
+    <AuthProvider>
+      <GlobalProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<MyProfile />} />
+          </Routes>
+        </Router>
+      </GlobalProvider>
+    </AuthProvider>
   );
 }
 
