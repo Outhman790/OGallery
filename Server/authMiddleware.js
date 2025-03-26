@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 // Middleware to check authentication and extract user role
 const authenticateUser = (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1]; // Extract token from header
+  const token = req.cookies?.token;
 
   if (!token) {
     return res
