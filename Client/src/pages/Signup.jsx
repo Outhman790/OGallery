@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import signupImage from "../images/signup-image.svg";
 import { useForm } from "react-hook-form";
 import { BounceLoader } from "react-spinners";
 import Navbar from "../Components/Navbar";
+import { useAuth } from "@/Context/AuthContext";
 const signUp = () => {
   const {
     register,
@@ -14,9 +15,11 @@ const signUp = () => {
     watch,
   } = useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
+
   const onSubmit = async (data) => {
     setIsLoading(true);
-    console.log(errors);
     try {
       console.log("Sending data to backend:", data); // Log the data being sent
       const response = await fetch("/signup", {
@@ -33,13 +36,15 @@ const signUp = () => {
           type: "server",
           message: "Email already in use",
         });
+      } else if (result.user) {
+        setUser(result.user);
+        setTimeout(() => {
+          setIsLoading(false); // Stop loading animation
+          result.user.role === "user" && navigate("/myprofile");
+        }, 2000);
       }
     } catch (error) {
       console.error("Sign-up error:", error); // Log unexpected errors
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false); // Stop loading animation
-      }, 2000);
     }
   };
 
