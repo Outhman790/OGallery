@@ -44,16 +44,10 @@ function loginNavbar() {
               </form>
               <ul className="flex justfy-between items-center space-x-2">
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  My Profile
+                  <Link to="/myprofile">My Profile</Link>
                 </li>
                 <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  <Link to="/login">Login</Link>
-                </li>
-                <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  <Link to="/Signup">Sign up</Link>
-                </li>
-                <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3">
-                  <Link to="/profile">My Account</Link>
+                  <Link to="/myaccount">My Account</Link>
                 </li>
               </ul>
             </div>
@@ -87,20 +81,15 @@ function loginNavbar() {
                   <MdImageSearch className="text-blue-500 p-2 rounded-md text-[3rem] absolute right-0 top-[-5px]" />
                 </button>
               </form>
-              <div className="flex flex-col space-y-4 text-center">
-                <a className="text-gray-100 font-medium text-xl" href="#">
-                  My Profile
-                </a>
-                <a className="text-gray-100 font-medium text-xl" href="#">
-                  Login
-                </a>
-                <a className="text-gray-100 font-medium text-xl" href="#">
-                  Sign up
-                </a>
-                <a className="text-gray-100 font-medium text-xl" href="#">
-                  My Account
-                </a>
-              </div>
+              <ul className="flex flex-col space-y-4 text-center">
+                <li className="text-gray-100 font-medium text-xl">
+                  <Link to="/myprofile">My Profile</Link>
+                </li>
+
+                <li className="text-gray-100 font-medium text-xl">
+                  <Link to="/myaccount">My Account</Link>
+                </li>
+              </ul>
             </div>
           </nav>
         </div>
