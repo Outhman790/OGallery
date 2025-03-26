@@ -1,8 +1,9 @@
 import loginImage from "../images/login-image.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../Components/Navbar";
+import { useAuth } from "../Context/AuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
   const {
@@ -10,6 +11,21 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const { user, setUser, loading } = useAuth();
+
+  // useEffect(() => {
+  //   if (!loading) {
+  //     if (!user) {
+  //       console.log(user?.role);
+  //       navigate("/login");
+  //     } else if (user.role === "admin") {
+  //       navigate("/adminDashboard");
+  //     } else if (user.role === "user") {
+  //       navigate("/myprofile");
+  //     }
+  //   }
+  // }, [user, loading, navigate]);
 
   const onSubmit = async (data) => {
     try {
@@ -31,9 +47,18 @@ const Login = () => {
         throw new Error(result.message || "Login failed");
       }
 
-      // Successful login
-      alert("Login successful!");
-      window.location.href = "/profile";
+      const userRes = await fetch("/me", {
+        credentials: "include",
+        method: "POST",
+      });
+      const userData = await userRes.json();
+      console.log(userRes);
+      console.log(userData);
+      setUser(userData.user);
+      alert(userData.user.role);
+      userData.user?.role === "admin"
+        ? navigate("/adminDashboard")
+        : navigate("/myprofile");
     } catch (error) {
       console.log(error.message);
     }
