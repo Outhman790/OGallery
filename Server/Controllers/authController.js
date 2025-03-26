@@ -41,8 +41,29 @@ const signUpUser = async (req, res) => {
       [name, email, hashedPassword]
     );
 
-    console.log("User created successfully");
-    return res.status(201).json({ message: "User created successfully" });
+    const [newUserRows] = await db.query("SELECT * FROM user WHERE email = ?", [
+      email,
+    ]);
+    const newUser = newUserRows[0];
+
+    // Generate JWT Token
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.Email, role: newUser.role },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Set HTTP-only cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 3600000,
+    });
+
+    res
+      .status(201)
+      .json({ message: "User created successfully", user: newUser });
   } catch (error) {
     console.error("Error during sign-up:", error);
     return res.status(500).json({ message: "Internal server error" });
