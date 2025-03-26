@@ -1,8 +1,10 @@
 import Navbar from "../Components/Navbar";
+import LoginNavbar from "../Components/LoginNavbar";
 import AddImage from "./addImage";
 import Image from "./Image";
 import { useState } from "react";
 import { useGlobalContext } from "../Context/GlobalState";
+import { useAuth } from "../Context/AuthContext";
 const Gallery = () => {
   const { items, dispatch } = useGlobalContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,10 +14,12 @@ const Gallery = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const { user } = useAuth();
 
   return (
     <>
-      <Navbar />
+      {user ? <LoginNavbar /> : <Navbar />}
+
       <div className="flex justify-center items-center mt-10">
         <p className="text-center p-2 font-medium md:text-xl">{`Images number is: ${items.length}`}</p>
         <hr className="border-l border-gray-300 h-10 mr-3" />
