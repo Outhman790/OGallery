@@ -3,10 +3,12 @@ import { TbLockPassword } from "react-icons/tb";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { TbFileDescription } from "react-icons/tb";
 import { MdOutlineEmail } from "react-icons/md";
+import LoginNavbar from "../Components/LoginNavbar";
 
 const Myprofile = () => {
   return (
     <>
+      <LoginNavbar />
       <div className="mt-10 mb-16">
         <h1 className="font-heading font-bold text-indigo-600 text-4xl text-center">
           My Profile
