@@ -99,5 +99,13 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+const logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "Strict",
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.status(200).json({ message: "Logged out" });
+};
 
-module.exports = { signUpUser, loginUser };
+module.exports = { signUpUser, loginUser, logout };
