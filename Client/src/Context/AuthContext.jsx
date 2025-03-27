@@ -1,12 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const logout = async () => {
     try {
       await fetch("/logout", {
@@ -14,7 +12,6 @@ export default function AuthProvider({ children }) {
         credentials: "include", // include cookie
       });
       setUser(null); // clear user from context
-      Navigate("/login");
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -22,13 +19,9 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (user !== null) {
-        setLoading(false);
-        return;
-      }
-
       try {
         const res = await fetch("/me", {
+          method: "POST",
           credentials: "include",
         });
         if (res.ok) {
@@ -45,7 +38,7 @@ export default function AuthProvider({ children }) {
     };
 
     fetchUser();
-  }, [loading]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser, logout, loading }}>
