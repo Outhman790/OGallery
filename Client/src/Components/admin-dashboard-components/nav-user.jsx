@@ -28,6 +28,10 @@ import { useAuth } from "@/Context/AuthContext";
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
   const { logout } = useAuth();
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -88,7 +92,7 @@ export function NavUser({ user }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                logout();
+                handleLogout();
               }}
             >
               <LogOutIcon />
