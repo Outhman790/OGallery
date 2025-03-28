@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../Components/Navbar";
 import { useAuth } from "../Context/AuthContext";
-import { useEffect } from "react";
 
 const Login = () => {
   const {
@@ -12,20 +11,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { user, setUser, loading } = useAuth();
-
-  // useEffect(() => {
-  //   if (!loading) {
-  //     if (!user) {
-  //       console.log(user?.role);
-  //       navigate("/login");
-  //     } else if (user.role === "admin") {
-  //       navigate("/adminDashboard");
-  //     } else if (user.role === "user") {
-  //       navigate("/myprofile");
-  //     }
-  //   }
-  // }, [user, loading, navigate]);
+  const { setUser } = useAuth();
 
   const onSubmit = async (data) => {
     try {
@@ -56,9 +42,9 @@ const Login = () => {
       console.log(userData);
       setUser(userData.user);
       alert(userData.user.role);
-      userData.user?.role === "admin"
-        ? navigate("/adminDashboard")
-        : navigate("/myprofile");
+      userData.user.role === "user"
+        ? navigate("/myprofile")
+        : navigate("/adminDashboard");
     } catch (error) {
       console.log(error.message);
     }
