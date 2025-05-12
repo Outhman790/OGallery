@@ -23,7 +23,14 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route
+        path="/"
+        element={
+          <GuestRoute>
+            <Home />
+          </GuestRoute>
+        }
+      />
       <Route path="/gallery" element={<Gallery />} />
       <Route
         path="/login"
