@@ -9,6 +9,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
   const navigate = useNavigate();
   const { setUser } = useAuth();
@@ -30,7 +31,12 @@ const Login = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Login failed");
+        if (result.message?.toLowerCase().includes("email")) {
+          setError("email", { type: "server", message: result.message });
+        } else if (result.message?.toLowerCase().includes("password")) {
+          setError("password", { type: "server", message: result.message });
+        }
+        return;
       }
 
       const userRes = await fetch("/me", {
