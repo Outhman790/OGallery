@@ -1,8 +1,11 @@
 import { useState } from "react";
 import AddImageForm from "./addImageForm";
 import { IoClose } from "react-icons/io5";
+import { useAuth } from "../Context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const AddImage = ({ closeModal, dispatch }) => {
+  const { user } = useAuth();
   const [image, setImage] = useState("");
   const onSubmit = (formData) => {
     const newItem = {
@@ -17,8 +20,8 @@ const AddImage = ({ closeModal, dispatch }) => {
     dispatch({ type: "ADD_ITEM", payload: newItem });
     closeModal();
   };
-
-  return (
+  console.log(user);
+  return user?.role ? (
     <div
       onClick={closeModal}
       className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center"
@@ -45,6 +48,8 @@ const AddImage = ({ closeModal, dispatch }) => {
         </div>
       </div>
     </div>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 
