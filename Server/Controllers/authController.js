@@ -25,7 +25,7 @@ const signUpUser = async (req, res) => {
       "SELECT * FROM user WHERE email = ?",
       [email]
     );
-
+    // If email already exists
     if (existingUser.length > 0) {
       console.log("Duplicate email found:", email);
       return res.status(409).json({ message: "Email already in use" });
@@ -45,10 +45,13 @@ const signUpUser = async (req, res) => {
       email,
     ]);
     const newUser = newUserRows[0];
+    const { User_id, Email, role } = newUser;
+
+    console.log("here: ", newUser);
 
     // Generate JWT Token
     const token = jwt.sign(
-      { id: newUser.id, email: newUser.Email, role: newUser.role },
+      { id: User_id, email: Email, role: role },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -61,9 +64,12 @@ const signUpUser = async (req, res) => {
       maxAge: 3600000,
     });
 
-    res
-      .status(201)
-      .json({ message: "User created successfully", user: newUser });
+    res.status(201).json({
+      message: "User created successfully",
+      user: {
+        role: role,
+      },
+    });
   } catch (error) {
     console.error("Error during sign-up:", error);
     return res.status(500).json({ message: "Internal server error" });
@@ -86,7 +92,7 @@ const loginUser = async (req, res) => {
       email,
     ]);
     if (!rows.length) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Email not found" });
     }
 
     const user = rows[0];
@@ -94,7 +100,7 @@ const loginUser = async (req, res) => {
     // Check if password matches
     const isPasswordValid = await bcrypt.compare(password, user.Password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid Password" });
     }
 
     // Generate JWT Token
