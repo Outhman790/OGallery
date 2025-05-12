@@ -46,6 +46,12 @@ function LoginNavbar() {
 
           {/* Links */}
           <ul className="flex flex-col md:flex-row gap-4 md:gap-3 text-white font-medium md:items-center items-center text-center">
+            <li
+              c
+              className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3 hover:bg-blue-300 hover:text-indigo-600"
+            >
+              <Link to="/gallery">Explore</Link>
+            </li>
             <li>
               <Link
                 to="/myprofile"
