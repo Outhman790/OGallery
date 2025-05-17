@@ -16,6 +16,8 @@ const AddImage = ({ closeModal, dispatch }) => {
         ? URL.createObjectURL(formData.imageFile[0])
         : "",
       author: "temp fake author",
+      category: formData.category,
+      tags: formData.tags,
     };
     dispatch({ type: "ADD_ITEM", payload: newItem });
     closeModal();
@@ -28,7 +30,7 @@ const AddImage = ({ closeModal, dispatch }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-[375px] mx-auto py-3 rounded-md lg:flex lg:justify-center lg:items-center lg:gap-8 bg-gray-300 lg:max-w-[50rem] lg:h-[28rem] lg:p-10"
+        className="relative max-w-[375px] mx-auto py-3 rounded-md lg:flex lg:justify-center lg:items-center lg:gap-8 bg-gray-300 lg:max-w-[50rem] lg:h-[34rem] lg:p-10"
       >
         <IoClose
           className="absolute lg:top-2 lg:right-2 top-1 right-[2px] text-2xl text-gray-400 hover:text-gray-700 hover:cursor-pointer"
@@ -37,7 +39,7 @@ const AddImage = ({ closeModal, dispatch }) => {
         {image && (
           <div>
             <img
-              className="mx-auto pt-5 md:h-[400px] object-cover max-w-[350px] lg:max-w-[400px]"
+              className="mx-auto p-4 md:pl-10 md:h-[400px] object-cover max-w-[350px] lg:max-w-[400px]"
               src={image}
               alt="tempImg"
             />
