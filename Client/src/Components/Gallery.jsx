@@ -5,9 +5,12 @@ import Image from "./Image";
 import { useState } from "react";
 import { useGlobalContext } from "../Context/GlobalState";
 import { useAuth } from "../Context/AuthContext";
+import Modal from "./imageModal";
 const Gallery = () => {
   const { items, dispatch } = useGlobalContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -32,15 +35,24 @@ const Gallery = () => {
       </div>
       <div className="w-full container max-w-[1200px] grid place-items-center grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-16 pt-10 mx-auto transition ease-in-out duration-300">
         {items.map((item) => (
-          <Image
-            imageSrc={item.image}
-            name={item.name}
-            description={item.description}
-            author={item.author}
+          <div
             key={item.id}
-          />
+            className="cursor-pointer"
+            onClick={() => setSelectedItem(item)}
+          >
+            <Image
+              key={item.id}
+              imageSrc={item.image}
+              name={item.name}
+              description={item.description}
+              author={item.author}
+              category={item.category}
+              tags={item.tags}
+            />
+          </div>
         ))}
       </div>
+      <Modal item={selectedItem} onClose={() => setSelectedItem(null)} />
       {isModalOpen && <AddImage dispatch={dispatch} closeModal={closeModal} />}
     </>
   );
