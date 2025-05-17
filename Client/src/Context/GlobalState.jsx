@@ -11,6 +11,8 @@ const tempDataForNow = [
     image:
       "https://images.pexels.com/photos/22669491/pexels-photo-22669491/free-photo-of-gelb-baum-traditionell-hangen.jpeg",
     author: "Khoi Tran",
+    category: "Landscape",
+    tags: ["sunset", "nature", "hills"],
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const tempDataForNow = [
     image:
       "https://images.pexels.com/photos/29832283/pexels-photo-29832283/free-photo-of-portrat-eines-mannes-der-eine-pflanze-in-kunstlerischem-licht-halt.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     author: "ORBABZ",
+    category: "City",
+    tags: ["city", "street", "night"],
   },
   {
     id: 3,
@@ -29,6 +33,8 @@ const tempDataForNow = [
     image:
       "https://images.pexels.com/photos/17827718/pexels-photo-17827718/free-photo-of-ijsland.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     author: "Febe Vanermen",
+    category: "Landscape",
+    tags: ["sunset", "nature", "hills"],
   },
   {
     id: 4,
@@ -38,6 +44,8 @@ const tempDataForNow = [
     image:
       "https://images.pexels.com/photos/29803469/pexels-photo-29803469/free-photo-of-morgen.jpeg",
     author: "Slampa",
+    category: "Landscape",
+    tags: ["sunset", "nature", "hills"],
   },
   {
     id: 5,
@@ -47,6 +55,8 @@ const tempDataForNow = [
     image:
       "https://images.pexels.com/photos/29784440/pexels-photo-29784440/free-photo-of-airstream-rutenverleih-am-pismo-beach-pier.jpeg",
     author: "Stayna",
+    category: "Landscape",
+    tags: ["sunset", "nature", "hills"],
   },
 ];
 
