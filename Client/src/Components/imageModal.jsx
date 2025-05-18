@@ -28,7 +28,7 @@ const Modal = ({ item, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center px-4 overflow-auto">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-6xl p-4 relative grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-6xl p-4 relative grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -38,11 +38,11 @@ const Modal = ({ item, onClose }) => {
         </button>
 
         {/* LEFT: Big Image */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center w-fit">
           <img
             src={item.image}
             alt={item.name}
-            className="rounded-lg max-h-[80vh] w-full object-contain"
+            className="rounded-lg h-fit max-h-[80vh] w-full object-contain"
           />
         </div>
 
