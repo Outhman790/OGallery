@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { BounceLoader } from "react-spinners";
 import Navbar from "../Components/Navbar";
 import { useAuth } from "@/Context/AuthContext";
+import api from "../api";
 const signUp = () => {
   const {
     register,
@@ -22,14 +23,11 @@ const signUp = () => {
     setIsLoading(true);
     try {
       console.log("Sending data to backend:", data); // Log the data being sent
-      const response = await fetch("/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      console.log("Response status:", response.status); // Log response status
-      const result = await response.json();
-      console.log("Response from backend:", result); // Log the response body
+
+      const response = await api.post("/signup", data); // Axios auto-sets headers + JSON stringify
+      console.log("Response from backend:", response); // Log full response
+
+      const result = response.data;
 
       if (result.message === "Email already in use") {
         setError("email", {
@@ -39,15 +37,14 @@ const signUp = () => {
       } else if (result.user) {
         setUser(result.user);
         setTimeout(() => {
-          setIsLoading(false); // Stop loading animation
+          setIsLoading(false);
           result.user.role === "user" && navigate("/myprofile");
         }, 2000);
       }
     } catch (error) {
-      console.error("Sign-up error:", error); // Log unexpected errors
+      console.error("Sign-up error:", error.response?.data || error.message);
     }
   };
-
   const isDomainallowed = (email) => {
     const allowedDomains = ["gmail", "yahoo", "outlook", "live"];
     const emailDomain = email.split("@")[1];

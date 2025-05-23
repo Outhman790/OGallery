@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Navbar from "../Components/Navbar";
 import { useAuth } from "../Context/AuthContext";
-
+import api from "../api";
 const Login = () => {
   const {
     register,
@@ -13,49 +13,43 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
   const { setUser } = useAuth();
-
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Allow cookies to be sent and received
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+      const response = await api.post("/login", {
+        email: data.email,
+        password: data.password,
       });
 
-      const result = await response.json();
+      const userRes = await api.post("/me");
+      const userData = userRes.data;
 
-      if (!response.ok) {
-        if (result.message?.toLowerCase().includes("email")) {
-          setError("email", { type: "server", message: result.message });
-        } else if (result.message?.toLowerCase().includes("password")) {
-          setError("password", { type: "server", message: result.message });
-        }
-        return;
-      }
-
-      const userRes = await fetch("/me", {
-        credentials: "include",
-        method: "POST",
-      });
-      const userData = await userRes.json();
       console.log(userRes);
       console.log(userData);
+
       setUser(userData.user);
       alert(userData.user.role);
+
       userData.user.role === "user"
         ? navigate("/myprofile")
         : navigate("/adminDashboard");
     } catch (error) {
-      console.log(error.message);
+      const message = error.response?.data?.message?.toLowerCase();
+
+      if (message?.includes("email")) {
+        setError("email", {
+          type: "server",
+          message: error.response.data.message,
+        });
+      } else if (message?.includes("password")) {
+        setError("password", {
+          type: "server",
+          message: error.response.data.message,
+        });
+      } else {
+        console.error("Login failed:", error.message);
+      }
     }
   };
-
   return (
     <>
       <Navbar />
