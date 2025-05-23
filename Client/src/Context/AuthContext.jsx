@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+import api from "../api";
 const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
@@ -7,10 +7,7 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const logout = async () => {
     try {
-      await fetch("/logout", {
-        method: "POST",
-        credentials: "include", // include cookie
-      });
+      await api.post("/logout");
       setUser(null); // clear user from context
     } catch (err) {
       console.error("Logout failed:", err);
@@ -20,23 +17,14 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("/me", {
-          method: "POST",
-          credentials: "include",
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-        } else {
-          setUser(null);
-        }
+        const res = await api.post("/me");
+        setUser(res.data.user);
       } catch (err) {
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
-
     fetchUser();
   }, []);
 
