@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./Routes/authRoutes');
+const imageRoutes = require('./Routes/imageRoutes');
 const cookieParser = require('cookie-parser');
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser()); // Enable cookie parsing
 
 app.use('/', authRoutes);
+app.use('/', imageRoutes);
 
 app.use((req, res, next) => {
   console.log(`Request received: ${req.method} ${req.url}`);
