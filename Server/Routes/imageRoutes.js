@@ -15,7 +15,7 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const { title, description, category_id } = req.body;
+    const { title, description, category_name } = req.body;
     const tags = JSON.parse(req.body.tags || '[]'); // Expecting tags as JSON array
     const userId = req.user.id;
 
@@ -25,30 +25,43 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
 
     const fileUrl = req.file.location;
 
+    // 🔍 Get actual category ID if a name was passed
+    let categoryId = null;
+
+    if (category_name) {
+      const [categoryRows] = await conn.query(
+        'SELECT Category_id FROM categories WHERE Category_name = ?',
+        [category_name],
+      );
+
+      if (!categoryRows.length) {
+        throw new Error(`Invalid category name: ${category_name}`);
+      }
+
+      categoryId = categoryRows[0].Category_id;
+    }
+
     // 1. Insert into images table
     const [result] = await conn.query(
       `INSERT INTO images (Title, Description, File_url, User_id, Category_id)
        VALUES (?, ?, ?, ?, ?)`,
-      [title, description, fileUrl, userId, category_id],
+      [title, description, fileUrl, userId, categoryId],
     );
 
     const imageId = result.insertId;
 
     // 2. Handle tags (insert if not exist, then link)
     for (const tagName of tags) {
-      // 2a. Check if tag exists
       const [existing] = await conn.query(`SELECT Tag_id FROM tags WHERE Tag_name = ?`, [tagName]);
 
       let tagId;
       if (existing.length > 0) {
         tagId = existing[0].Tag_id;
       } else {
-        // 2b. Insert new tag
         const [tagResult] = await conn.query(`INSERT INTO tags (Tag_name) VALUES (?)`, [tagName]);
         tagId = tagResult.insertId;
       }
 
-      // 2c. Insert into image_tags
       await conn.query(`INSERT INTO image_tags (Image_id, Tag_id) VALUES (?, ?)`, [imageId, tagId]);
     }
 
@@ -63,7 +76,7 @@ router.post('/upload', authenticateUser, upload.single('image'), async (req, res
     await conn.rollback();
     conn.release();
     console.error('Upload error:', err);
-    res.status(500).json({ message: 'Upload failed' });
+    res.status(500).json({ message: 'Upload failed', error: err.message });
   }
 });
 
