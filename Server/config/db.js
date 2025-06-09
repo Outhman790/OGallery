@@ -1,5 +1,5 @@
-require("dotenv").config(); // Load environment variables
-const mysql = require("mysql2");
+require('dotenv').config(); // Load environment variables
+const mysql = require('mysql2');
 
 // Create and export a reusable database connection pool
 const pool = mysql.createPool({

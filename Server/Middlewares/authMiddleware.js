@@ -1,13 +1,11 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 // Middleware to check authentication and extract user role
 const authenticateUser = (req, res, next) => {
   const token = req.cookies?.token;
-  console.log("Token:", token);
+  console.log('Token:', token);
   if (!token) {
-    return res
-      .status(401)
-      .json({ message: "Access denied. No token provided." });
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
   }
 
   try {
@@ -15,9 +13,9 @@ const authenticateUser = (req, res, next) => {
     req.user = decoded; // Add user info (id, role) to request object
     next();
   } catch (err) {
-    console.error("JWT verification failed:", err.message);
+    console.error('JWT verification failed:', err.message);
 
-    res.status(403).json({ message: "Invalid or expired token." });
+    res.status(403).json({ message: 'Invalid or expired token.' });
   }
 };
 
@@ -25,9 +23,7 @@ const authenticateUser = (req, res, next) => {
 const authorizeRoles = (...roles) => {
   return (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {
-      return res
-        .status(403)
-        .json({ message: "Access denied. You don’t have permission." });
+      return res.status(403).json({ message: 'Access denied. You don’t have permission.' });
     }
     next();
   };
