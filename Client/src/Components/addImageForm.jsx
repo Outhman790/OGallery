@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaRegFileImage } from "react-icons/fa";
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaRegFileImage } from 'react-icons/fa';
 
 const AddImageForm = ({ onSubmit, setImage }) => {
   const {
@@ -13,16 +13,16 @@ const AddImageForm = ({ onSubmit, setImage }) => {
   } = useForm();
 
   const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
-  const imageWatch = watch("imageFile");
+  const [tagInput, setTagInput] = useState('');
+  const imageWatch = watch('imageFile');
 
   useEffect(() => {
-    if (imageWatch?.length > 0 && imageWatch[0].type.startsWith("image/")) {
+    if (imageWatch?.length > 0 && imageWatch[0].type.startsWith('image/')) {
       const url = URL.createObjectURL(imageWatch[0]);
       setImage(url);
       return () => {
         URL.revokeObjectURL(url);
-        setImage("");
+        setImage('');
       };
     }
   }, [imageWatch]);
@@ -32,7 +32,7 @@ const AddImageForm = ({ onSubmit, setImage }) => {
   };
 
   const handleTagKeyDown = (e) => {
-    if (e.key === "Enter" && tagInput.trim() !== "") {
+    if (e.key === 'Enter' && tagInput.trim() !== '') {
       e.preventDefault();
 
       if (tags.length >= 5) return;
@@ -40,17 +40,17 @@ const AddImageForm = ({ onSubmit, setImage }) => {
       if (!tags.includes(tagInput.trim())) {
         const newTags = [...tags, tagInput.trim()];
         setTags(newTags);
-        setValue("tags", newTags);
+        setValue('tags', newTags);
       }
 
-      setTagInput("");
+      setTagInput('');
     }
   };
 
   const removeTag = (index) => {
     const newTags = tags.filter((_, i) => i !== index);
     setTags(newTags);
-    setValue("tags", newTags);
+    setValue('tags', newTags);
   };
 
   return (
@@ -58,31 +58,24 @@ const AddImageForm = ({ onSubmit, setImage }) => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col justify-center items-center gap-1 py-5 font-sans lg:w-[24rem]"
     >
-      <label
-        className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md"
-        htmlFor="imageName"
-      >
+      <label className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md" htmlFor="imageName">
         Image name:
       </label>
       <input
         className="outline-indigo-600 focus:bg-indigo-100"
         type="text"
         id="imageName"
-        {...register("name", {
+        {...register('name', {
           validate: {
-            minLength: (value) =>
-              value.length >= 3 || "Name must be at least 3 characters long",
-            maxLength: (value) =>
-              value.length <= 25 || "Name must be at most 25 characters long",
+            minLength: (value) => value.length >= 3 || 'Name must be at least 3 characters long',
+            maxLength: (value) => value.length <= 25 || 'Name must be at most 25 characters long',
             noSpecialChars: (value) =>
-              /^[a-zA-Z\s]+$/.test(value) || "Name must only contain letters",
+              /^[a-zA-Z\s]+$/.test(value) || 'Name must only contain letters',
           },
         })}
-        onBlur={() => handleBlur("name")}
+        onBlur={() => handleBlur('name')}
       />
-      {errors.name && (
-        <p className="text-red-500 text-[.8rem]">{errors.name.message}</p>
-      )}
+      {errors.name && <p className="text-red-500 text-[.8rem]">{errors.name.message}</p>}
       <label
         className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md"
         htmlFor="imageDescription"
@@ -94,48 +87,58 @@ const AddImageForm = ({ onSubmit, setImage }) => {
         id="imageDescription"
         rows="3"
         cols="30"
-        {...register("imageDescription", {
+        {...register('imageDescription', {
           validate: {
             minLength: (value) =>
-              value.length >= 50 ||
-              "Description must be at least 50 characters long",
+              value.length >= 50 || 'Description must be at least 50 characters long',
             maxLength: (value) =>
-              value.length <= 500 ||
-              "Description must be less than 500 characters",
+              value.length <= 500 || 'Description must be less than 500 characters',
           },
         })}
-        onBlur={() => handleBlur("imageDescription")}
+        onBlur={() => handleBlur('imageDescription')}
       ></textarea>
       {errors.imageDescription && (
-        <p className="text-red-500 text-[.8rem]">
-          {errors.imageDescription.message}
-        </p>
+        <p className="text-red-500 text-[.8rem]">{errors.imageDescription.message}</p>
       )}
-      <label
-        className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md"
-        htmlFor="category"
-      >
+      <label className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md" htmlFor="category">
         Category:
       </label>
       <select
         className="outline-indigo-600 focus:bg-indigo-100"
         id="category"
-        {...register("category", { required: "Category is required" })}
-        onBlur={() => handleBlur("category")}
+        {...register('category', { required: 'Category is required' })}
+        onBlur={() => handleBlur('category')}
       >
         <option value="">Select a category</option>
-        <option value="Nature">Nature</option>
-        <option value="Architecture">Architecture</option>
-        <option value="Animals">Animals</option>
-        <option value="Technology">Technology</option>
-        <option value="People">People</option>
+        {[
+          'Nature & Landscapes',
+          'Wildlife & Animals',
+          'People & Portraits',
+          'Sports & Fitness',
+          'Travel & Adventure',
+          'Food & Beverages',
+          'Technology & Gadgets',
+          'Science & Space',
+          'Art & Creativity',
+          'Architecture & Structures',
+          'Business & Finance',
+          'Health & Medicine',
+          'Fashion & Beauty',
+          'Vehicles & Transportation',
+          'Education & Learning',
+          'Holidays & Festivals',
+          'Abstract & Conceptual',
+          'Military & Defense',
+          'Religion & Spirituality',
+          'Miscellaneous',
+        ].map((cat) => (
+          <option key={cat} value={cat}>
+            {cat}
+          </option>
+        ))}
       </select>
-      {errors.category && (
-        <p className="text-red-500 text-[.8rem]">{errors.category.message}</p>
-      )}
-      <label className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md">
-        Tags:
-      </label>
+      {errors.category && <p className="text-red-500 text-[.8rem]">{errors.category.message}</p>}
+      <label className="cursor-pointer text-indigo-600 my-1 px-4 rounded-md">Tags:</label>
       <input
         type="text"
         className="outline-indigo-600 focus:bg-indigo-100"
@@ -143,7 +146,7 @@ const AddImageForm = ({ onSubmit, setImage }) => {
         value={tagInput}
         onChange={(e) => setTagInput(e.target.value)}
         onKeyDown={handleTagKeyDown}
-      />{" "}
+      />{' '}
       <div className="flex flex-wrap gap-2 my-2">
         {tags.map((tag, idx) => (
           <span
@@ -161,10 +164,8 @@ const AddImageForm = ({ onSubmit, setImage }) => {
           </span>
         ))}
       </div>
-      <input type="hidden" {...register("tags")} value={tags} />
-      {tags.length >= 5 && (
-        <p className="text-red-500 text-[.8rem]">Maximum of 5 tags allowed</p>
-      )}
+      <input type="hidden" {...register('tags')} value={tags} />
+      {tags.length >= 5 && <p className="text-red-500 text-[.8rem]">Maximum of 5 tags allowed</p>}
       {/* Image File Upload */}
       <label
         className="cursor-pointer text-indigo-600 mt-2 py-2 px-3 rounded-md border-2 border-indigo-400 bg-gray-200"
@@ -178,39 +179,34 @@ const AddImageForm = ({ onSubmit, setImage }) => {
         className="hidden"
         type="file"
         id="imageFile"
-        {...register("imageFile", {
-          required: "Image file is required",
+        {...register('imageFile', {
+          required: 'Image file is required',
           validate: {
             isImage: (fileList) => {
               const file = fileList[0];
               if (!file) return true;
 
               const validTypes = [
-                "image/jpeg",
-                "image/png",
-                "image/gif",
-                "image/webp",
-                "image/jpg",
+                'image/jpeg',
+                'image/png',
+                'image/gif',
+                'image/webp',
+                'image/jpg',
               ];
 
-              return (
-                validTypes.includes(file.type) ||
-                "Please insert a valid image file"
-              );
+              return validTypes.includes(file.type) || 'Please insert a valid image file';
             },
             maxSize: (fileList) => {
               const file = fileList[0];
               if (!file) return true;
 
               const maxSize = 1024 * 1024 * 5;
-              return file.size <= maxSize || "File size must be less than 5MB";
+              return file.size <= maxSize || 'File size must be less than 5MB';
             },
           },
         })}
       />
-      {errors.imageFile && (
-        <p className="text-red-500 text-[.8rem]">{errors.imageFile.message}</p>
-      )}
+      {errors.imageFile && <p className="text-red-500 text-[.8rem]">{errors.imageFile.message}</p>}
       <button
         className="bg-indigo-600 font-sans text-white py-1 px-4 mt-3 rounded-md"
         type="submit"
