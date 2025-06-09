@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const db = require("./db");
+const db = require("./config/db");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const authRoutes = require("./Routes/authRoutes");
 const cookieParser = require("cookie-parser");
