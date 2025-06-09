@@ -1,26 +1,29 @@
-import { useState } from "react";
-import AddImageForm from "./addImageForm";
-import { IoClose } from "react-icons/io5";
-import { useAuth } from "../Context/AuthContext";
-import { Navigate } from "react-router-dom";
-
+import { useState } from 'react';
+import AddImageForm from './addImageForm';
+import { IoClose } from 'react-icons/io5';
+import { useAuth } from '../Context/AuthContext';
+import { Navigate } from 'react-router-dom';
+import api from '../api';
 const AddImage = ({ closeModal, dispatch }) => {
   const { user } = useAuth();
-  const [image, setImage] = useState("");
-  const onSubmit = (formData) => {
-    const newItem = {
-      id: Date.now(),
-      name: formData.name,
-      description: formData.imageDescription,
-      image: formData.imageFile[0]
-        ? URL.createObjectURL(formData.imageFile[0])
-        : "",
-      author: "temp fake author",
-      category: formData.category,
-      tags: formData.tags,
-    };
-    dispatch({ type: "ADD_ITEM", payload: newItem });
-    closeModal();
+  const [image, setImage] = useState('');
+  const onSubmit = async (formData) => {
+    try {
+      const data = new FormData();
+      console.log('formData:', formData);
+      data.append('title', formData.name);
+      data.append('description', formData.imageDescription);
+      data.append('category_name', formData.category);
+      data.append('tags', JSON.stringify(formData.tags));
+      data.append('image', formData.imageFile[0]);
+
+      await api.post('/upload', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      closeModal();
+    } catch (err) {
+      console.error('Upload failed:', err);
+    }
   };
   console.log(user);
   return user?.role ? (
