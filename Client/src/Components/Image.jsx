@@ -1,15 +1,13 @@
-const Image = ({ imageSrc, name, description, author, category, tags }) => {
-  const trimFunction = (str) => {
-    return str.length > 60 ? str.slice(0, 60) + "..." : str;
-  };
+const Image = ({ image, name, description, author, category, tags }) => {
+  const trimFunction = (str) => (str.length > 60 ? str.slice(0, 60) + '...' : str);
+
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition-transform duration-300 hover:scale-105">
-      <img src={imageSrc} alt={name} className="w-full h-48 object-cover" />
+      <img src={image} alt={name} loading="lazy" className="w-full h-[300px] object-cover" />
+
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-1">{name}</h2>
-        <p className="text-sm text-gray-600 mb-2">
-          {trimFunction(description)}
-        </p>
+        <p className="text-sm text-gray-600 mb-2">{trimFunction(description)}</p>
         <p className="text-xs text-gray-400 mb-2">By {author}</p>
         {category && (
           <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2">
