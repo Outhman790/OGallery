@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const Modal = ({ item, onClose }) => {
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
   if (!item) return null;
@@ -17,12 +17,12 @@ const Modal = ({ item, onClose }) => {
     e.preventDefault();
     if (comment.trim()) {
       const newComment = {
-        name: "Commentator name",
+        name: 'Commentator name',
         text: comment.trim(),
         date: new Date().toISOString(),
       };
       setComments([...comments, newComment]);
-      setComment("");
+      setComment('');
     }
   };
 
@@ -40,7 +40,7 @@ const Modal = ({ item, onClose }) => {
         {/* LEFT: Big Image */}
         <div className="flex items-center justify-center w-fit">
           <img
-            src={item.image}
+            src={item.fullImage}
             alt={item.name}
             className="rounded-lg h-fit max-h-[80vh] w-full object-contain"
           />
@@ -71,13 +71,13 @@ const Modal = ({ item, onClose }) => {
             <button
               onClick={handleLike}
               className={`px-4 py-1 rounded-lg text-white text-sm font-semibold transition ${
-                liked ? "bg-red-500" : "bg-gray-400 hover:bg-red-400"
+                liked ? 'bg-red-500' : 'bg-gray-400 hover:bg-red-400'
               }`}
             >
-              {liked ? "Liked ❤️" : "Like ❤️"}
+              {liked ? 'Liked ❤️' : 'Like ❤️'}
             </button>
             <span className="text-gray-600 text-sm">
-              {likes} {likes === 1 ? "like" : "likes"}
+              {likes} {likes === 1 ? 'like' : 'likes'}
             </span>
           </div>
 
@@ -101,17 +101,14 @@ const Modal = ({ item, onClose }) => {
             </form>
             <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
               {comments.map((c, i) => (
-                <div
-                  key={i}
-                  className="bg-gray-100 p-2 rounded-lg text-sm text-gray-800"
-                >
+                <div key={i} className="bg-gray-100 p-2 rounded-lg text-sm text-gray-800">
                   <div className="flex justify-between items-center text-xs text-gray-500 mb-1">
                     <span>{c.name}</span>
                     <span>
-                      {new Date(c.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
+                      {new Date(c.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
                       })}
                     </span>
                   </div>
@@ -119,9 +116,7 @@ const Modal = ({ item, onClose }) => {
                 </div>
               ))}
 
-              {comments.length === 0 && (
-                <p className="text-sm text-gray-400">No comments yet.</p>
-              )}
+              {comments.length === 0 && <p className="text-sm text-gray-400">No comments yet.</p>}
             </div>
           </div>
         </div>
