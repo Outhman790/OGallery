@@ -3,12 +3,17 @@ import AddImageForm from './addImageForm';
 import { IoClose } from 'react-icons/io5';
 import { useAuth } from '../Context/AuthContext';
 import { Navigate } from 'react-router-dom';
+import { BounceLoader } from 'react-spinners';
 import api from '../api';
+import { showSuccessToast, showErrorToast } from '../lib/toast';
 const AddImage = ({ closeModal, dispatch }) => {
   const { user } = useAuth();
   const [image, setImage] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (formData) => {
     try {
+      setLoading(true);
       const data = new FormData();
       console.log('formData:', formData);
       data.append('title', formData.name);
@@ -21,8 +26,12 @@ const AddImage = ({ closeModal, dispatch }) => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       closeModal();
+      showSuccessToast('Image uploaded successfully!', 3000);
     } catch (err) {
       console.error('Upload failed:', err);
+      showErrorToast(`Failed to upload image !! ${err}`, 3000);
+    } finally {
+      setLoading(false);
     }
   };
   console.log(user);
@@ -51,6 +60,11 @@ const AddImage = ({ closeModal, dispatch }) => {
         <div>
           <AddImageForm onSubmit={onSubmit} setImage={setImage} />
         </div>
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-md">
+            <BounceLoader color="#4f46e5" />
+          </div>
+        )}
       </div>
     </div>
   ) : (
