@@ -100,3 +100,33 @@ exports.getUserImages = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch user images' });
   }
 };
+exports.getAllImages = async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT i.Image_id AS id, i.Title AS name, i.Description AS description,
+              i.File_url AS fullImage, i.Preview_url AS previewImage,
+              c.Category_name AS category,
+              GROUP_CONCAT(t.Tag_name) AS tags
+       FROM images i
+       LEFT JOIN categories c ON i.Category_id = c.Category_id
+       LEFT JOIN image_tags it ON i.Image_id = it.Image_id
+       LEFT JOIN tags t ON it.Tag_id = t.Tag_id
+       GROUP BY i.Image_id`,
+    );
+
+    const images = rows.map((row) => ({
+      id: row.id,
+      name: row.name,
+      description: row.description,
+      image: row.previewImage,
+      fullImage: row.fullImage,
+      category: row.category,
+      tags: row.tags ? row.tags.split(',') : [],
+    }));
+
+    res.json({ images });
+  } catch (err) {
+    console.error('Error fetching user images:', err);
+    res.status(500).json({ message: 'Failed to fetch user images' });
+  }
+};
