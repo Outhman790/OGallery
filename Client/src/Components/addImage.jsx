@@ -22,10 +22,11 @@ const AddImage = ({ closeModal, dispatch }) => {
       data.append('tags', JSON.stringify(formData.tags));
       data.append('image', formData.imageFile[0]);
 
-      await api.post('/upload', data, {
+      const res = await api.post('/upload', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       closeModal();
+      dispatch({ type: 'ADD_IMAGE', payload: res.data });
       showSuccessToast('Image uploaded successfully!', 3000);
     } catch (err) {
       console.error('Upload failed:', err);
