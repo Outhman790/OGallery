@@ -6,5 +6,5 @@ const { uploadImage, getUserImages, getAllImages } = require('../Controllers/ima
 
 router.post('/upload', authenticateUser, upload.single('image'), uploadImage);
 router.get('/my-images', authenticateUser, getUserImages);
-router.get('/all-images', authenticateUser, getAllImages);
+router.get('/all-images', getAllImages);
 module.exports = router;
