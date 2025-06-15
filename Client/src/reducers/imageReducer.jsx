@@ -1,6 +1,6 @@
 export default function imageReducer(state, action) {
   switch (action.type) {
-    case 'GET_ALL_IMAGES':
+    case 'GET_IMAGES':
       return [...action.payload];
 
     case 'ADD_IMAGE':
