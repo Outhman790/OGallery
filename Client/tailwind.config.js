@@ -72,6 +72,15 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
       },
+      animation: {
+        // Fade-In
+        fadeIn: 'fadeIn 1s ease-in-out forwards',
+        keyframes: {
+          fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
+        },
+        // Pulse (Tailwind's default, but explicitly defined)
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/container-queries')],
