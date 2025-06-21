@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { MdImageSearch } from "react-icons/md";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useAuth } from "@/Context/AuthContext";
-function LoginNavbar() {
+import React, { useState, forwardRef } from 'react';
+import { MdImageSearch } from 'react-icons/md';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { IoClose } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@/Context/AuthContext';
+
+const LoginNavbar = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useAuth();
+
   return (
-    <nav className="bg-indigo-600 w-full z-20">
+    <nav ref={ref} className="bg-indigo-600 w-full z-20">
       <div className="container max-w-[1200px] mx-auto p-4 flex items-center justify-between relative">
-        {/* Logo Centered (on mobile too) */}
         <Link
           to="/"
           className="text-3xl font-bold text-gray-100 flex items-center gap-2 mx-auto md:mx-0"
@@ -18,7 +19,6 @@ function LoginNavbar() {
           OGallery
         </Link>
 
-        {/* Hamburger toggle */}
         <button
           className="md:hidden absolute right-4 text-3xl text-gray-100"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -26,13 +26,11 @@ function LoginNavbar() {
           {isOpen ? <IoClose /> : <RxHamburgerMenu />}
         </button>
 
-        {/* Nav content (one structure only, responsive) */}
         <div
           className={`${
-            isOpen ? "block" : "hidden"
+            isOpen ? 'block' : 'hidden'
           } absolute top-full left-0 w-full md:static md:w-auto md:flex md:items-center md:gap-6 bg-indigo-600 md:bg-transparent p-4 md:p-0`}
         >
-          {/* Search Bar */}
           <form className="relative w-full md:w-[250px] mb-4 md:mb-0">
             <input
               type="search"
@@ -44,12 +42,8 @@ function LoginNavbar() {
             </button>
           </form>
 
-          {/* Links */}
           <ul className="flex flex-col md:flex-row gap-4 md:gap-3 text-white font-medium md:items-center items-center text-center">
-            <li
-              c
-              className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3 hover:bg-blue-300 hover:text-indigo-600"
-            >
+            <li className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3 hover:bg-blue-300 hover:text-indigo-600">
               <Link to="/gallery">Explore</Link>
             </li>
             <li>
@@ -67,7 +61,7 @@ function LoginNavbar() {
               >
                 My Account
               </Link>
-            </li>{" "}
+            </li>
             <li>
               <button
                 className="text-blue-300 border-2 border-blue-300 rounded-md py-2 px-3 hover:bg-blue-300 hover:text-indigo-600"
@@ -81,6 +75,6 @@ function LoginNavbar() {
       </div>
     </nav>
   );
-}
+});
 
 export default LoginNavbar;
