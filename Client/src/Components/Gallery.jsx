@@ -10,7 +10,6 @@ import Modal from './imageModal';
 import useInfiniteScrollLoader from '../hooks/useInfiniteScrollLoader';
 import fetchImagesFromAPI from '../utils/fetchImages';
 import fetchNewImages from '../utils/fetchNewImages';
-import { Toggle } from './ui/toggle';
 import { cn } from '../lib/utils';
 
 const Gallery = () => {
@@ -30,6 +29,7 @@ const Gallery = () => {
   const loader = useRef(null);
   const navRef = useRef(null);
   const pollingRef = useRef(null);
+  const imagesRef = useRef(images);
   const limit = 12;
 
   const openModal = () => setIsModalOpen(true);
@@ -61,14 +61,14 @@ const Gallery = () => {
   }, [fetchImages]);
 
   useEffect(() => {
-    if (!polling) {
-      if (pollingRef.current) clearInterval(pollingRef.current);
-      return;
-    }
+    imagesRef.current = images;
+  }, [images]);
 
+  useEffect(() => {
     const poll = async () => {
       try {
-        const afterId = images[0]?.id || 0;
+        if (!imagesRef.current.length) return;
+        const afterId = imagesRef.current[0]?.id || 0;
         const fresh = await fetchNewImages(afterId);
         if (fresh.length > 0) {
           setNewImages(fresh);
@@ -83,7 +83,7 @@ const Gallery = () => {
     pollingRef.current = setInterval(poll, 30000);
 
     return () => clearInterval(pollingRef.current);
-  }, [polling, images]);
+  }, []);
 
   useInfiniteScrollLoader(loader, { hasMore, loading }, () => setPage((p) => p + 1));
 
@@ -135,9 +135,6 @@ const Gallery = () => {
         >
           Add an image
         </button>
-        <Toggle pressed={polling} onPressedChange={setPolling} variant="outline" className="ml-3">
-          Auto refresh
-        </Toggle>
       </div>
 
       <div className="w-full container max-w-[1200px] grid place-items-center grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] gap-16 pt-10 mx-auto transition ease-in-out duration-300">
