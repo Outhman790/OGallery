@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { BounceLoader } from 'react-spinners';
 
 const Modal = ({ item, onClose }) => {
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   if (!item) return null;
 
@@ -27,7 +29,7 @@ const Modal = ({ item, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center px-4 overflow-auto">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center px-4 overflow-auto animate-fadeIn">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-6xl p-4 relative grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
@@ -38,12 +40,18 @@ const Modal = ({ item, onClose }) => {
         </button>
 
         {/* LEFT: Big Image */}
-        <div className="flex items-center justify-center w-fit">
+        <div className="flex items-center justify-center w-fit relative">
           <img
             src={item.fullImage}
             alt={item.name}
+            onLoad={() => setLoading(false)}
             className="rounded-lg h-fit max-h-[80vh] w-full object-contain"
           />
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/60 rounded-lg">
+              <BounceLoader color="#4f46e5" />
+            </div>
+          )}
         </div>
 
         {/* RIGHT: Info + Interactions */}
